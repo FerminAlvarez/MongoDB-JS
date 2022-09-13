@@ -16,13 +16,14 @@ const insertItem = (item) => {
 }
 
 
-const getPelis = () => {
-  // hardcodeado: peliculas con "Toy" en el titulo
+const getPelis = (title) => {
   const filter = {
-   'title':{$regex: /Toy/}
+  'title':{$regex: new RegExp(title)}
   };
   const projection = {
     'title': 1, 
+    'year': 1,
+    'plot' : 1,
     '_id': 0
   };
   const coll = db.collection('movies');
