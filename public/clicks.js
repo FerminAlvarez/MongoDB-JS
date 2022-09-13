@@ -17,6 +17,7 @@ button.addEventListener('click', function(e) {
             lista += "<p>" + peli.title + " ("+ peli.year + ")" +  "</p>";
             lista += "<p> <span>" + peli.plot + "</span> </p>";;
         })
+        lista += "<p>"+ data.length + " resultados</p>"
         const divRes = document.getElementById("resultados");
         divRes.innerHTML = lista;
         return;
