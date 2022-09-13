@@ -1,5 +1,5 @@
 const express = require('express')
-const { insertItem,  getPelis, getPelisT } = require('./db')
+const { insertItem,  getPelis, getPelisSorpresa } = require('./db')
 
 const router = express.Router()
 
@@ -16,6 +16,24 @@ router.get('/peliculas', (req, res) => {
         title: item.title,
         year: item.year,
         plot: item.plot,
+      }))
+      res.json(items)
+    })
+    .catch((err) => {
+      console.log(err)
+      res.status(500).end()
+    })
+})
+
+// Obtener las peliculas solicitadas
+router.get('/peliculas-sorpresa', (req, res) => {
+  let title = req.query.title
+  getPelisSorpresa(title)
+    .then((items) => {
+      items = items.map((item) => ({
+        title: item.title,
+        year: item.year,
+        poster: item.poster,
       }))
       res.json(items)
     })

@@ -32,5 +32,21 @@ const getPelis = (title) => {
   return result;
 }
 
+const getPelisSorpresa = () => {
+  const filter = {
+  'title':{$regex: /The Lord of the Rings/}
+  };
+  const projection = {
+    'title': 1, 
+    'year': 1,
+    'poster' : 1,
+    '_id': 0
+  };
+  const coll = db.collection('movies');
+  const cursor = coll.find(filter, { projection });
+  const result = cursor.toArray();
+  return result;
+}
 
-module.exports = { init, insertItem, getPelis }
+
+module.exports = { init, insertItem, getPelis, getPelisSorpresa }
