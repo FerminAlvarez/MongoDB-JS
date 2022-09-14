@@ -82,6 +82,9 @@ body {
 
 .movie__img {
     width: 180px;
+    margin-left: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .movie__content {
