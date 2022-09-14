@@ -35,8 +35,7 @@ const parseIMDBRating = (item) => item.imdb === undefined ? null :
  item.imdb.rating === undefined ? null : item.imdb.rating
 
 const parseTomatoesRating = (item) => item.tomatoes === undefined ? null :
- item.tomatoes.critic === undefined ? null :
- item.tomatoes.critic.rating === undefined ? null : item.tomatoes.critic.rating
+ item.tomatoes === undefined || item.tomatoes.critic === undefined || item.tomatoes.critic.rating === undefined ? null : item.tomatoes.critic.rating
 
 // Obtener las peliculas solicitadas
 router.get('/peliculas-hardcodeado', (req, res) => {
