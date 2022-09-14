@@ -33,6 +33,7 @@ const getPelis = (title) => {
       'rating': 1
     },
     'metacritic' : 1,
+    'poster' : 1,
     '_id': 0
   };
   const coll = db.collection('movies');
@@ -41,13 +42,38 @@ const getPelis = (title) => {
   return result;
 }
 
-const getPelisSorpresa = () => {
+const getPelisHardcodeado = () => {
   const filter = {
-  'title':{$regex: /The Lord of the Rings/}
+    'cast': {
+      '$in': [
+        'Bruce Willis'
+      ]
+    }, 
+    'imdb.rating': {
+      '$gte': 5
+    }, 
+    'genres': {
+      '$in': [
+        'Action'
+      ]
+    }, 
+    'year': {
+      '$lte': 2000
+    }
   };
   const projection = {
     'title': 1, 
     'year': 1,
+    'plot' : 1,
+    'tomatoes': {
+      'critic': {
+        'rating': 1
+      }
+    },
+    'imdb': {
+      'rating': 1
+    },
+    'metacritic' : 1,
     'poster' : 1,
     '_id': 0
   };
@@ -58,4 +84,4 @@ const getPelisSorpresa = () => {
 }
 
 
-module.exports = { init, insertItem, getPelis, getPelisSorpresa }
+module.exports = { init, insertItem, getPelis, getPelisHardcodeado }

@@ -1,7 +1,6 @@
 
 const button = document.getElementById('buttonBuscar');
-const buttonSorpresa = document.getElementById('buttonSorpresa');
-import movie_card  from "./movie_card";
+const buttonHardcodeado = document.getElementById('buttonHardcodeado');
 
 button.addEventListener('click', function(e) {
     // realizar la busqueda y generar la lista 
@@ -16,8 +15,7 @@ button.addEventListener('click', function(e) {
         let lista = "";
         data.forEach((peli)=>
         {
-            lista += "<p>" + peli.title + " ("+ peli.year + ")" +  "</p>";
-            lista += "<p> <span>" + peli.plot + "</span> </p>";
+            lista += movie_card(peli.poster, peli.title, peli.year, peli.plot, peli.metacritic, peli.tomatoes_rating, peli.imbd_rating);
         })
         lista += "<p>"+ data.length + " resultados</p>"
         const divRes = document.getElementById("resultados");
@@ -37,9 +35,9 @@ const title = () => {
 
 
 
-buttonSorpresa.addEventListener('click', function(e) {
+buttonHardcodeado.addEventListener('click', function(e) {
   // realizar la busqueda y generar la lista 
-  fetch('/peliculas-sorpresa', {method: 'GET'})
+  fetch('/peliculas-hardcodeado', {method: 'GET'})
   .then(function(response) {
     if(response.ok) {
       return response.json();
@@ -50,11 +48,10 @@ buttonSorpresa.addEventListener('click', function(e) {
       let lista = "";
       data.forEach((peli)=>
       {
-          lista += "<img src=" + peli.poster + ">";
-          lista += "<p>" + peli.title + " ("+ peli.year + ")" +  "</p>";
+        lista += movie_card(peli.poster, peli.title, peli.year, peli.plot, peli.metacritic, peli.tomatoes_rating, peli.imbd_rating);
       })
       lista += "<p>"+ data.length + " resultados</p>"
-      const divRes = document.getElementById("resultado-sorpresa");
+      const divRes = document.getElementById("resultados");
       divRes.innerHTML = lista;
       return;
   } )

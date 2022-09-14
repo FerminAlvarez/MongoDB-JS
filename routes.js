@@ -1,5 +1,5 @@
 const express = require('express')
-const { insertItem,  getPelis, getPelisSorpresa } = require('./db')
+const { insertItem,  getPelis, getPelisHardcodeado } = require('./db')
 
 const router = express.Router()
 
@@ -16,6 +16,7 @@ router.get('/peliculas', (req, res) => {
         title: item.title || null,
         year: item.year || null ,
         plot: item.plot || null,
+        poster: item.poster || null,
         imbd_rating : parseIMDBRating(item),
         tomatoes_rating : parseTomatoesRating(item),
         metacritic: item.metacritic || null,
@@ -36,14 +37,17 @@ const parseTomatoesRating = (item) => item.tomatoes === undefined ? null :
  item.tomatoes.critic.rating === undefined ? null : item.tomatoes.critic.rating
 
 // Obtener las peliculas solicitadas
-router.get('/peliculas-sorpresa', (req, res) => {
-  let title = req.query.title
-  getPelisSorpresa(title)
+router.get('/peliculas-hardcodeado', (req, res) => {
+  getPelisHardcodeado()
     .then((items) => {
       items = items.map((item) => ({
-        title: item.title,
-        year: item.year,
-        poster: item.poster,
+        title: item.title || null,
+        year: item.year || null ,
+        plot: item.plot || null,
+        poster: item.poster || null,
+        imbd_rating : parseIMDBRating(item),
+        tomatoes_rating : parseTomatoesRating(item),
+        metacritic: item.metacritic || null,
       }))
       res.json(items)
     })
