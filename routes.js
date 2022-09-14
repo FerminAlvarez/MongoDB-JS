@@ -13,9 +13,12 @@ router.get('/peliculas', (req, res) => {
   getPelis(title)
     .then((items) => {
       items = items.map((item) => ({
-        title: item.title,
-        year: item.year,
-        plot: item.plot,
+        title: item.title || null,
+        year: item.year || null ,
+        plot: item.plot || null,
+        imbd_rating : parseIMDBRating(item),
+        tomatoes_rating : parseTomatoesRating(item),
+        metacritic: item.metacritic || null,
       }))
       res.json(items)
     })
@@ -24,6 +27,13 @@ router.get('/peliculas', (req, res) => {
       res.status(500).end()
     })
 })
+
+const parseIMDBRating = (item) => item.imdb === undefined ? null : 
+ item.imdb.rating === undefined ? null : item.imdb.rating
+
+const parseTomatoesRating = (item) => item.tomatoes === undefined ? null :
+ item.tomatoes.critic === undefined ? null :
+ item.tomatoes.critic.rating === undefined ? null : item.tomatoes.critic.rating
 
 // Obtener las peliculas solicitadas
 router.get('/peliculas-sorpresa', (req, res) => {

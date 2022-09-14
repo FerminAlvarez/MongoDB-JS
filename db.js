@@ -24,6 +24,15 @@ const getPelis = (title) => {
     'title': 1, 
     'year': 1,
     'plot' : 1,
+    'tomatoes': {
+      'critic': {
+        'rating': 1
+      }
+    },
+    'imdb': {
+      'rating': 1
+    },
+    'metacritic' : 1,
     '_id': 0
   };
   const coll = db.collection('movies');

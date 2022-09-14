@@ -1,6 +1,7 @@
 
 const button = document.getElementById('buttonBuscar');
 const buttonSorpresa = document.getElementById('buttonSorpresa');
+import movie_card  from "./movie_card";
 
 button.addEventListener('click', function(e) {
     // realizar la busqueda y generar la lista 
