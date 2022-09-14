@@ -18,7 +18,9 @@ const insertItem = (item) => {
 
 const getPelis = (title) => {
   const filter = {
-  'title':{$regex: new RegExp(title)}
+    '$text': {
+      '$search': title
+    }
   };
   const projection = {
     'title': 1, 
@@ -36,6 +38,7 @@ const getPelis = (title) => {
     'poster' : 1,
     '_id': 0
   };
+  
   const coll = db.collection('movies');
   const cursor = coll.find(filter, { projection });
   const result = cursor.toArray();
@@ -91,22 +94,6 @@ const getPelisRandom = () => {
       }
     }
   ];
-  const projection = {
-    'title': 1, 
-    'year': 1,
-    'plot' : 1,
-    'tomatoes': {
-      'critic': {
-        'rating': 1
-      }
-    },
-    'imdb': {
-      'rating': 1
-    },
-    'metacritic' : 1,
-    'poster' : 1,
-    '_id': 0
-  };
   const coll = db.collection('movies');
   const cursor = coll.aggregate(agg);
   const result = cursor.toArray();
