@@ -93,12 +93,9 @@ body {
 }
 
 .movie__price {
-    background:linear-gradient(to bottom, #A9C9FF 0%, #FFBBEC 100%);
+    background-color: #fff;
     flex: 0 0 50px;
-    font-size: 18px;
-    font-weight: bold;
     letter-spacing: 2px;
-    color: rgb(255, 255, 255);
     writing-mode: vertical-lr;
     display: flex;
     align-items: center;
