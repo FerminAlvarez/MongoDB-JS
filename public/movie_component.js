@@ -1,4 +1,9 @@
 function movie_card (image_link, title, year, plot, metacritic_rating, tomatoes_rating, imdb_rating ) {
+    
+    image_link = image_link == null ? ' Desconocido ' : image_link
+    title = title == null ? ' Desconocido ' : title
+    year = year == null ? ' Desconocido ' : year
+    plot = plot == null ? ' Desconocido ' : plot
     metacritic_rating = metacritic_rating == null ? ' Desconocido ' : metacritic_rating
     tomatoes_rating = tomatoes_rating == null ? ' Desconocido ' : tomatoes_rating
     imdb_rating = imdb_rating == null ? ' Desconocido ' : imdb_rating

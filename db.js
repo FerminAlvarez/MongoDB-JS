@@ -83,5 +83,34 @@ const getPelisHardcodeado = () => {
   return result;
 }
 
+const getPelisRandom = () => {
+  const agg = [
+    {
+      '$sample': {
+        'size': 5
+      }
+    }
+  ];
+  const projection = {
+    'title': 1, 
+    'year': 1,
+    'plot' : 1,
+    'tomatoes': {
+      'critic': {
+        'rating': 1
+      }
+    },
+    'imdb': {
+      'rating': 1
+    },
+    'metacritic' : 1,
+    'poster' : 1,
+    '_id': 0
+  };
+  const coll = db.collection('movies');
+  const cursor = coll.aggregate(agg);
+  const result = cursor.toArray();
+  return result;
+}
 
-module.exports = { init, insertItem, getPelis, getPelisHardcodeado }
+module.exports = { init, insertItem, getPelis, getPelisHardcodeado, getPelisRandom }

@@ -1,5 +1,5 @@
 const express = require('express')
-const { insertItem,  getPelis, getPelisHardcodeado } = require('./db')
+const { insertItem,  getPelis, getPelisHardcodeado, getPelisRandom } = require('./db')
 
 const router = express.Router()
 
@@ -57,16 +57,40 @@ router.get('/peliculas-hardcodeado', (req, res) => {
     })
 })
 
+
+// Obtener las peliculas solicitadas
+router.get('/peliculas-random', (req, res) => {
+  getPelisRandom()
+    .then((items) => {
+      items = items.map((item) => ({
+        title: item.title || null,
+        year: item.year || null ,
+        fullplot: item.fullplot || null,
+        poster: item.poster || null,
+        cast: item.cast || null,
+        imbd_rating : parseIMDBRating(item),
+        tomatoes_rating : parseTomatoesRating(item),
+        metacritic: item.metacritic || null,
+      }))
+      res.json(items)
+    })
+    .catch((err) => {
+      console.log(err)
+      res.status(500).end()
+    })
+})
+
+
 // Postear una pelicula
 router.post('/peliculas', (req, res) => {
   const item = req.body
   console.log(req.body)
-  const result = itemSchema.validate(item)
+  /*const result = itemSchema.validate(item)
   if (result.error) {
     console.log(result.error)
     res.status(400).end()
     return
-  }
+  }*/
   insertItem(item)
     .then(() => {
       res.status(200).end()
