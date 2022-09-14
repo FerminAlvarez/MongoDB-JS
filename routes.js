@@ -1,5 +1,7 @@
 const express = require('express')
 const { insertItem,  getPelis, getPelisHardcodeado, getPelisRandom } = require('./db')
+const Ajv = require("ajv")
+const ajv = new Ajv()
 
 const router = express.Router()
 
@@ -84,13 +86,13 @@ router.get('/peliculas-random', (req, res) => {
 // Postear una pelicula
 router.post('/peliculas', (req, res) => {
   const item = req.body
-  console.log(req.body)
-  /*const result = itemSchema.validate(item)
-  if (result.error) {
-    console.log(result.error)
+
+  const result = ajv.validate(peliculaSchema, item)
+  if (!result) {
+    console.log(ajv.errors)
     res.status(400).end()
     return
-  }*/
+  }
   insertItem(item)
     .then(() => {
       res.status(200).end()
@@ -101,5 +103,16 @@ router.post('/peliculas', (req, res) => {
     })
 })
 
+const peliculaSchema = {
+  type: "object",
+  properties: {
+    title: {type: "string"},
+    fullplot: {type: "string"},
+    cast: {type: "array"},
+    poster: {type: "string"},
+    year: {type: "integer"},
+  },
+  required: ["title", "year"]
+}
 
 module.exports = router
