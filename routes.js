@@ -31,8 +31,7 @@ router.get('/peliculas', (req, res) => {
     })
 })
 
-const parseIMDBRating = (item) => item.imdb === undefined ? null : 
- item.imdb.rating === undefined ? null : item.imdb.rating
+const parseIMDBRating = (item) => item.imdb === undefined || item.imdb.rating === undefined ? null : item.imdb.rating
 
 const parseTomatoesRating = (item) => item.tomatoes === undefined ? null :
  item.tomatoes === undefined || item.tomatoes.critic === undefined || item.tomatoes.critic.rating === undefined ? null : item.tomatoes.critic.rating
